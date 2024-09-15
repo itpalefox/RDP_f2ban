@@ -66,8 +66,8 @@ foreach ($event in $events) {
                 
                     if ($addressesToAdd) {
                         WriteLog "Adding IP addresses to the existing firewall rule..."
-				$existingRemoteAddresses += $addressesToAdd
-                        Set-NetFirewallRule -DisplayName $ruleName -RemoteAddress $existingRemoteAddresses
+						$updatedAddresses = @("$existingRemoteAddresses", "$addressesToAdd").Split(" ")
+                        Set-NetFirewallRule -DisplayName $ruleName -RemoteAddress $updatedAddresses
                         WriteLog "Added IP addresses: $($addressesToAdd -join ', ')"
                     } else {
                         WriteLog "No IP addresses to add to the existing firewall rule."
